@@ -18,6 +18,6 @@ class helloTest {
         mockMvc
                 .perform(MockMvcRequestBuilders.get("/hello/faissal"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("OK"));
+                .andExpect(MockMvcResultMatchers.content().string("Hello Mr faissal"));
     }
 }
