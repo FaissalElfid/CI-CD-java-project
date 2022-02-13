@@ -1,7 +1,7 @@
 spring:
   cloud:
     config:
-      uri: http://CLOUD-CONFIG-SERVER-SVC
+      uri:  "${ CLOUD-CONFIG-SERVER-SVC: http://localhost:9296/}"
       label: main
       profile: default
       fail-fast: true

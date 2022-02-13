@@ -1,4 +1,4 @@
-package com.dailycodebuffer.department;
+package com.devite.department;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
