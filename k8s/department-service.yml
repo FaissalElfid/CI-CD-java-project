@@ -20,6 +20,32 @@ spec:
           imagePullPolicy: Never
           ports:
             - containerPort: 9001
+          env:
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: app-secret
+                  key: USER_LOGIN
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: app-secret
+                  key: USER_PWD
+            - name: MYSQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: DEPARTEMENT_MYSQL_DATABASE
+            - name: BD_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: BD_URL
+            - name: CONFIG-SERVER
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: CONFIG-SERVER
 
 ---
 apiVersion: v1

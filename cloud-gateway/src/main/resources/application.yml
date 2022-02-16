@@ -7,25 +7,32 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: USER-SERVICE
-          uri: lb://USER-SERVICE
+        - id: EMPLOYEE-SERVICE
+          uri: lb://EMPLOYEE-SERVICE
           predicates:
-            - Path=/users/**
+            - Path=/api/v1/employee-service/**
           filters:
             - name: CircuitBreaker
               args:
-                name: USER-SERVICE
+                name: EMPLOYEE-SERVICE
                 fallbackuri: forward:/userServiceFallBack
         - id: DEPARTMENT-SERVICE
           uri: lb://DEPARTMENT-SERVICE
           predicates:
-            - Path=/deps/**
+            - Path=/api/v1/departement-service/**
           filters:
             - name: CircuitBreaker
               args:
                 name: DEPARTMENT-SERVICE
                 fallbackuri: forward:/departmentServiceFallBack
-
+springdoc:
+  swagger-ui:
+    use-root-path: true
+    urls:
+      - name: departement
+        url: /api/v1/departement-service/v3/api-docs/
+      - name: employee
+        url: /api/v1/employee-service/v3/api-docs/
 
 hystrix:
   command:

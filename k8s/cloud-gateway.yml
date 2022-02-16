@@ -20,6 +20,13 @@ spec:
           imagePullPolicy: Never
           ports:
             - containerPort: 9191
+          env:
+            - name: CONFIG-SERVER
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: CONFIG-SERVER
+
 
 ---
 apiVersion: v1

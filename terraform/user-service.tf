@@ -1,9 +1,9 @@
 resource "kubernetes_deployment" "user_service_app" {
   metadata {
-    name = "user-service-app"
+    name = "employee-service-app"
 
     labels = {
-      app = "user-service-app"
+      app = "employee-service-app"
     }
   }
 
@@ -12,21 +12,21 @@ resource "kubernetes_deployment" "user_service_app" {
 
     selector {
       match_labels = {
-        app = "user-service-app"
+        app = "employee-service-app"
       }
     }
 
     template {
       metadata {
         labels = {
-          app = "user-service-app"
+          app = "employee-service-app"
         }
       }
 
       spec {
         container {
-          name  = "user-service-app"
-          image = "faissalelfid/user-service:0.0.1"
+          name  = "employee-service-app"
+          image = "faissalelfid/employee-service:0.0.1"
 
           port {
             container_port = 9002
@@ -41,7 +41,7 @@ resource "kubernetes_deployment" "user_service_app" {
 
 resource "kubernetes_service" "user_service_svc" {
   metadata {
-    name = "user-service-svc"
+    name = "employee-service-svc"
   }
 
   spec {
@@ -51,7 +51,7 @@ resource "kubernetes_service" "user_service_svc" {
     }
 
     selector = {
-      app = "user-service-app"
+      app = "employee-service-app"
     }
   }
 }

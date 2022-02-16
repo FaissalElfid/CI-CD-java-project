@@ -4,4 +4,6 @@ metadata:
   name: app-config
 data:
   BD_URL: mysql-service
-  MYSQL_DATABASE: departement
+  DEPARTEMENT_MYSQL_DATABASE: departement
+  EMPLOYEE_MYSQL_DATABASE: employee
+  CONFIG-SERVER: CLOUD-CONFIG-SERVER-SVC

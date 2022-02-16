@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: employee-service-app
+  labels:
+    app: employee-service-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app : employee-service-app
+  template:
+    metadata:
+      labels:
+        app: employee-service-app
+    spec:
+      containers:
+      - name: employee-service-app
+        image: faissalelfid/employee-service:0.0.1
+        imagePullPolicy: Never
+        ports:
+          - containerPort: 9002
+        env:
+          - name: CONFIG-SERVER
+            valueFrom:
+              configMapKeyRef:
+                name: app-config
+                key: CONFIG-SERVER
+          - name: MYSQL_USER
+            valueFrom:
+              secretKeyRef:
+                name: app-secret
+                key: USER_LOGIN
+              - name: MYSQL_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: app-secret
+                    key: USER_PWD
+              - name: MYSQL_DATABASE
+                valueFrom:
+                  configMapKeyRef:
+                    name: app-config
+                    key: EMPLOYEE_MYSQL_DATABASE
+              - name: BD_URL
+                valueFrom:
+                  configMapKeyRef:
+                    name: app-config
+                    key: BD_URL
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name:  employee-service-svc
+spec:
+  selector:
+    app:  employee-service-app
+  ports:
+  - port:  80
+    targetPort:  9002
