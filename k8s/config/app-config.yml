@@ -3,7 +3,8 @@ kind: ConfigMap
 metadata:
   name: app-config
 data:
-  BD_URL: mysql-service
+  BD_DEPARTEMENT_URL: mysql-departement-service
+  BD_EMPLOYEE_URL: mysql-employee-service
   DEPARTEMENT_MYSQL_DATABASE: departement
   EMPLOYEE_MYSQL_DATABASE: employee
   CONFIG-SERVER: CLOUD-CONFIG-SERVER-SVC

@@ -17,7 +17,7 @@ spec:
       containers:
         - name: cloud-gateway-app
           image: faissalelfid/cloud-gateway:0.0.1
-          imagePullPolicy: Never
+          imagePullPolicy: Always
           ports:
             - containerPort: 9191
           env:

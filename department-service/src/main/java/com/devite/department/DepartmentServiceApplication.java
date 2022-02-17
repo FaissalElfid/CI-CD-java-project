@@ -11,9 +11,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @OpenAPIDefinition(info =
 @Info(title = "Department API", version = "1.0", description = "Documentation Department API v1.0"))
 public class DepartmentServiceApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(DepartmentServiceApplication.class, args);
 	}
-
 }

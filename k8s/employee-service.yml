@@ -17,7 +17,7 @@ spec:
       containers:
       - name: employee-service-app
         image: faissalelfid/employee-service:0.0.1
-        imagePullPolicy: Never
+        imagePullPolicy: Always
         ports:
           - containerPort: 9002
         env:
@@ -31,21 +31,21 @@ spec:
               secretKeyRef:
                 name: app-secret
                 key: USER_LOGIN
-              - name: MYSQL_PASSWORD
-                valueFrom:
-                  secretKeyRef:
-                    name: app-secret
-                    key: USER_PWD
-              - name: MYSQL_DATABASE
-                valueFrom:
-                  configMapKeyRef:
-                    name: app-config
-                    key: EMPLOYEE_MYSQL_DATABASE
-              - name: BD_URL
-                valueFrom:
-                  configMapKeyRef:
-                    name: app-config
-                    key: BD_URL
+          - name: MYSQL_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: app-secret
+                key: USER_PWD
+          - name: MYSQL_DATABASE
+            valueFrom:
+              configMapKeyRef:
+                name: app-config
+                key: EMPLOYEE_MYSQL_DATABASE
+          - name: BD_URL
+            valueFrom:
+              configMapKeyRef:
+                name: app-config
+                key: BD_EMPLOYEE_URL
 
 ---
 

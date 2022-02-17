@@ -3,6 +3,7 @@ package com.devite.department.service;
 import com.devite.department.bean.Departement;
 import com.devite.department.dao.DepartementDao;
 import com.devite.department.dto.DepartementDto;
+import com.devite.department.dto.ResponseDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +17,21 @@ public class DepartementService {
     @Autowired
     DepartementDao departementDao;
 
-    public long save(DepartementDto departementDto) {
+    public ResponseDto<DepartementDto> save(DepartementDto departementDto) {
+        ResponseDto<DepartementDto> responseDto = new ResponseDto<>();
         if(departementDao.existsDistinctByLibelle(departementDto.getLibelle())){
-            return -1;
+            responseDto.setCode(-1);
+            responseDto.setMessage("libelle already exists");
+            responseDto.setPayload(departementDto);
         }else{
             Departement departement = new Departement();
             BeanUtils.copyProperties(departementDto,departement);
-            return departementDao.save(departement).getId();
+            departementDao.save(departement).getId();
+            responseDto.setCode(1);
+            responseDto.setMessage("department added succefully !!");
+            responseDto.setPayload(departementDto);
         }
+        return responseDto;
     }
     public List<Departement> findAll() {
         return departementDao.findAll();

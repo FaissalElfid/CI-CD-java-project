@@ -2,6 +2,7 @@ package com.devite.department.controller;
 
 import com.devite.department.bean.Departement;
 import com.devite.department.dto.DepartementDto;
+import com.devite.department.dto.ResponseDto;
 import com.devite.department.service.DepartementService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class DepartementController {
     @Autowired
     private DepartementService departmentService;
 
-    @GetMapping("/{libelle}")
+    @GetMapping("")
     public Departement findByLibelle(@RequestParam("libelle") String department) {
         return departmentService.findByLibelle(department);
     }
@@ -27,7 +28,7 @@ public class DepartementController {
     }
 
     @PostMapping("/")
-    public long save(@RequestBody DepartementDto departementDto){
+    public ResponseDto<DepartementDto> save(@RequestBody DepartementDto departementDto){
         return departmentService.save(departementDto);
     }
 

@@ -41,7 +41,7 @@ spec:
       containers:
         - name: eureka
           image: faissalelfid/service-registry:0.0.1
-          imagePullPolicy: Never
+          imagePullPolicy: Always
           ports:
             - containerPort: 8761
           env:

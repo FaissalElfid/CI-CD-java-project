@@ -17,7 +17,7 @@ spec:
       containers:
         - name: department-service-app
           image: faissalelfid/department-service:0.0.1
-          imagePullPolicy: Never
+          imagePullPolicy: Always
           ports:
             - containerPort: 9001
           env:
@@ -40,7 +40,7 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: app-config
-                  key: BD_URL
+                  key: BD_DEPARTEMENT_URL
             - name: CONFIG-SERVER
               valueFrom:
                 configMapKeyRef:
