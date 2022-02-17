@@ -15,6 +15,7 @@ jobs:
       department: ${{ steps.filter.outputs.department }}
       cloud-config-server: ${{ steps.filter.outputs.cloud-config-server }}
       cloud-gateway: ${{ steps.filter.outputs.cloud-gateway }}
+      service-registry: ${{ steps.filter.outputs.service-registry }}
     steps:
     # For pull requests it's not necessary to checkout the code
     - uses: actions/checkout@v2
@@ -30,6 +31,9 @@ jobs:
             - 'cloud-config-server/**'
           cloud-gateway:
             - 'cloud-gateway/**'
+          service-registry:
+            - 'service-registry/**'
+
   user:
     needs: changes
     if: ${{ needs.changes.outputs.user == 'true' }}
@@ -57,6 +61,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           working-directory: department-service
+
   cloud-config-server:
     needs: changes
     if: ${{ needs.changes.outputs.cloud-config-server == 'true' }}
@@ -70,6 +75,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           working-directory: cloud-config-server
+
   cloud-gateway:
     needs: changes
     if: ${{ needs.changes.outputs.cloud-gateway == 'true' }}
@@ -83,3 +89,17 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           working-directory: cloud-gateway
+
+  service-registry:
+    needs: changes
+    if: ${{ needs.changes.outputs.service-registry == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+      - uses: ./.github/actions/build-java
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          working-directory: service-registry

@@ -1,5 +1,5 @@
 name: build-java-docker
-    
+description: this action build and push the image with the tag 0.0.1 (without tests)
 inputs:
   username:
     description: docker username
