@@ -1,1 +1,1 @@
-#Eureka server (service registry)
+#Eureka server
