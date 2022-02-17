@@ -62,7 +62,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           working-directory: department-service
 
-  cloud-config-server:
+  config:
     needs: changes
     if: ${{ needs.changes.outputs.cloud-config-server == 'true' }}
     runs-on: ubuntu-latest
@@ -76,7 +76,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           working-directory: cloud-config-server
 
-  cloud-gateway:
+  gateway:
     needs: changes
     if: ${{ needs.changes.outputs.cloud-gateway == 'true' }}
     runs-on: ubuntu-latest
@@ -90,7 +90,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           working-directory: cloud-gateway
 
-  service-registry:
+  eureka:
     needs: changes
     if: ${{ needs.changes.outputs.service-registry == 'true' }}
     runs-on: ubuntu-latest
