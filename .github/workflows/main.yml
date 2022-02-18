@@ -12,10 +12,10 @@ jobs:
     outputs:
       user: ${{ steps.filter.outputs.user }}
       department: ${{ steps.filter.outputs.department }}
-      cloud-config-server: ${{ steps.filter.outputs.cloud-config-server }}
-      cloud-gateway: ${{ steps.filter.outputs.cloud-gateway }}
-      service-registry: ${{ steps.filter.outputs.service-registry }}
-      hystrix-dashboard: ${{ steps.filter.outputs.hystrix-dashboard }}
+      config: ${{ steps.filter.outputs.config }}
+      gateway: ${{ steps.filter.outputs.gateway }}
+      registry: ${{ steps.filter.outputs.registry }}
+      hystrix: ${{ steps.filter.outputs.hystrix }}
     steps:
     # For pull requests it's not necessary to checkout the code
     - uses: actions/checkout@v2
