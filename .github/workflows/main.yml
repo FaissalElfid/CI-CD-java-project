@@ -3,9 +3,8 @@ name: Main workflow CI/CD (detect changes)
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
-  pull_request_review:
+#   pull_request:
+#     branches: [ main ]
 
 jobs:
   changes:
@@ -16,6 +15,7 @@ jobs:
       cloud-config-server: ${{ steps.filter.outputs.cloud-config-server }}
       cloud-gateway: ${{ steps.filter.outputs.cloud-gateway }}
       service-registry: ${{ steps.filter.outputs.service-registry }}
+      hystrix-dashboard: ${{ steps.filter.outputs.hystrix-dashboard }}
     steps:
     # For pull requests it's not necessary to checkout the code
     - uses: actions/checkout@v2
@@ -27,12 +27,14 @@ jobs:
             - 'employee-service/**'
           department:
             - 'department-service/**'
-          cloud-config-server:
+          config:
             - 'cloud-config-server/**'
-          cloud-gateway:
+          gateway:
             - 'cloud-gateway/**'
-          service-registry:
+          registry:
             - 'service-registry/**'
+          hystrix:
+            - 'hystrix-dashboard/**'
 
   user:
     needs: changes
@@ -64,7 +66,7 @@ jobs:
 
   config:
     needs: changes
-    if: ${{ needs.changes.outputs.cloud-config-server == 'true' }}
+    if: ${{ needs.changes.outputs.config == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -78,7 +80,7 @@ jobs:
 
   gateway:
     needs: changes
-    if: ${{ needs.changes.outputs.cloud-gateway == 'true' }}
+    if: ${{ needs.changes.outputs.gateway == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -92,7 +94,7 @@ jobs:
 
   eureka:
     needs: changes
-    if: ${{ needs.changes.outputs.service-registry == 'true' }}
+    if: ${{ needs.changes.outputs.registry == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -103,3 +105,17 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           working-directory: service-registry
+          
+  hystrix:
+    needs: changes
+    if: ${{ needs.changes.outputs.hystrix == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+      - uses: ./.github/actions/build-java
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          working-directory: hystrix-dashboard
